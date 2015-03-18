@@ -1,9 +1,14 @@
 package com.herokuapp.chinaprime;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
@@ -12,15 +17,31 @@ public class MainActivity extends ActionBarActivity {
     private RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private static ArrayList<Deck> decks;
-
-    public MainActivity() {
-    }
+    private ArrayList<Item> mItems;
+    private ImageView mItemView;
+    private String DEBUG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //addItems
+        this.createItems();
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        // specify an adapter (see also next example)
+        mAdapter = new MyAdapter(this.mItems);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
 
@@ -44,5 +65,20 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void createItems() {
+        this.mItems = new ArrayList<Item>();
+        for (int i = 0; i < 5; i++) {
+            this.mItems.add(new Item("Item " + i, R.drawable.ic_launcher, 35, 22));
+        }
+    }
+
+    public void goToViewItem(int position) {
+        Intent intent = new Intent(this, ViewItemActivty.class);
+        if(position >= 0 && position < this.mItems.size()) {
+            intent.putExtra("Position", position);
+            this.startActivity(intent);
+        }
     }
 }

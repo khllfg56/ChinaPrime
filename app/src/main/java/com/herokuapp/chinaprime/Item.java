@@ -1,44 +1,51 @@
 package com.herokuapp.chinaprime;
 
 /**
- * Created by Andrew Cho on 3/13/2015.
+ * Created by Andrew Cho on 3/16/2015.
  */
 public class Item {
-    private String title;
-    private int image;
-    private int retailPrice;
-    private int priceSold;
+    private String mTitle;
+    private int mImage;
+    private int mRetailPrice;
+    private int mPrice;
 
-
-    public String getTitle() {
-        return title;
+    public Item(String mTitle, int mImage, int mRetailPrice, int mPrice) {
+        this.mTitle = mTitle;
+        this.mImage = mImage;
+        this.mRetailPrice = mRetailPrice;
+        this.mPrice =  mPrice;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+
+    public String getmTitle() {
+        return mTitle;
     }
 
-    public int getImage() {
-        return image;
+    public void setmTitle(String mTitle) {
+        this.mTitle = mTitle;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public int getmImage() {
+        return mImage;
     }
 
-    public int getRetailPrice() {
-        return retailPrice;
+    public void setmImage(int mImage) {
+        this.mImage = mImage;
     }
 
-    public void setRetailPrice(int retailPrice) {
-        this.retailPrice = retailPrice;
+    public int getmRetailPrice() {
+        return mRetailPrice;
     }
 
-    public int getPriceSold() {
-        return priceSold;
+    public void setmRetailPrice(int mRetailPrice) {
+        this.mRetailPrice = mRetailPrice;
     }
 
-    public void setPriceSold(int priceSold) {
-        this.priceSold = priceSold;
+    public int getmPrice() {
+        return mPrice;
+    }
+
+    public void setmPrice(int mPrice) {
+        this.mPrice = mPrice;
     }
 }

@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ViewItemActivty"
+            android:label="@string/title_activity_view_item_activty" >
+        </activity>
     </application>
 
 </manifest>
