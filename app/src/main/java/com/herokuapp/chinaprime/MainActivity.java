@@ -7,8 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 
@@ -18,7 +16,6 @@ public class MainActivity extends ActionBarActivity {
     private MyAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<Item> mItems;
-    private ImageView mItemView;
     private String DEBUG = "MainActivity";
 
     @Override
@@ -75,7 +72,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void goToViewItem(int position) {
-        Intent intent = new Intent(this, ViewItemActivty.class);
+        Intent intent = new Intent(this, ViewItemActivity.class);
         if(position >= 0 && position < this.mItems.size()) {
             intent.putExtra("Position", position);
             this.startActivity(intent);
