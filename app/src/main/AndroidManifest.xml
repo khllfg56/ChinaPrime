@@ -20,6 +20,10 @@
             android:name=".ViewItemActivity"
             android:label="@string/title_activity_view_item_activity" >
         </activity>
+        <activity
+            android:name=".TabbedActivity"
+            android:label="@string/title_activity_tabbed" >
+        </activity>
     </application>
 
 </manifest>
