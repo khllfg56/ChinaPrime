@@ -1,5 +1,6 @@
 package com.herokuapp.chinaprime;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -61,6 +62,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         imageViewRight = (ImageView) holder.view.findViewById(R.id.ivImageRight);
         imageViewLeft.setTag(leftPosition);
         imageViewRight.setTag(rightPosition);
+
+        if (rightPosition == items.size()) {
+            CardView temp = (CardView) holder.view.findViewById(R.id.card_view_right);
+            temp.setVisibility(View.INVISIBLE);
+        }
 
         imageViewLeft.setOnClickListener(new View.OnClickListener() {
             @Override
