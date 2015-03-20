@@ -1,6 +1,9 @@
 package com.herokuapp.chinaprime;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -9,6 +12,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -18,10 +24,12 @@ public class MainActivity extends ActionBarActivity {
     private RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<Item> mItems;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
+    private String[] mMenuTitles;
     private String DEBUG = "MainActivity";
+
+    public static ArrayList<Item> mItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +58,18 @@ public class MainActivity extends ActionBarActivity {
         // specify an adapter (see also next example)
         mAdapter = new MyAdapter(this.mItems);
         mRecyclerView.setAdapter(mAdapter);
+
+        //Setting up navigation drawer
+        mMenuTitles = getResources().getStringArray(R.array.menu_options);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        // set a custom shadow that overlays the main content when the drawer opens
+        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        // set up the drawer's list view with items and click listener
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.drawer_list_item, mMenuTitles));
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
     }
 
 
@@ -80,7 +100,9 @@ public class MainActivity extends ActionBarActivity {
 
     private void createItems() {
         this.mItems = new ArrayList<Item>();
-        for (int i = 0; i < 5; i++) {
+        this.mItems.add(new Item("iWatch", R.drawable.iWatch, 350, 250));
+        this.mItems.add(new Item("Hero GoPro", R.drawable.HeroGoPro, 200, 100));
+        for (int i = 1; i < 5; i++) {
             this.mItems.add(new Item("Item " + i, R.drawable.ic_launcher, 35, 22));
         }
     }
@@ -91,5 +113,29 @@ public class MainActivity extends ActionBarActivity {
             intent.putExtra("Position", position);
             this.startActivity(intent);
         }
+    }
+
+    /* The click listner for ListView in the navigation drawer */
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectItem(position);
+        }
+    }
+
+    private void selectItem(int position) {
+        // update the main content by replacing fragments
+        Fragment fragment = new CartFragment();
+        Bundle args = new Bundle();
+        args.putInt(CartFragment.menu_number, position);
+        fragment.setArguments(args);
+
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+
+        // update selected item and title, then close the drawer
+        mDrawerList.setItemChecked(position, true);
+        setTitle(mMenuTitles[position]);
+        mDrawerLayout.closeDrawer(mDrawerList);
     }
 }
