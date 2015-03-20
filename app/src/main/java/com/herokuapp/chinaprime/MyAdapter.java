@@ -54,11 +54,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Log.i(DEBUG, "" + position);
+        int leftPosition = position * 2;
+        int rightPosition = position * 2 + 1;
 
         imageViewLeft = (ImageView) holder.view.findViewById(R.id.ivImageLeft);
         imageViewRight = (ImageView) holder.view.findViewById(R.id.ivImageRight);
-        imageViewLeft.setTag(position * 2);
-        imageViewRight.setTag(position * 2 + 1);
+        imageViewLeft.setTag(leftPosition);
+        imageViewRight.setTag(rightPosition);
 
         imageViewLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,8 +81,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             }
         });
 
-        imageViewLeft.setImageResource(items.get(position).getmImage());
-        imageViewRight.setImageResource(items.get(position).getmImage());
+        imageViewLeft.setImageResource(items.get(leftPosition).getmImage());
+        imageViewRight.setImageResource(items.get(rightPosition).getmImage());
     }
 
 

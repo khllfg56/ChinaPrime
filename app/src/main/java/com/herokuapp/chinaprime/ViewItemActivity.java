@@ -11,6 +11,8 @@ import android.widget.TextView;
 public class ViewItemActivity extends ActionBarActivity {
     private ImageView mItemImage;
     private TextView mItemPrice;
+    private TextView mItemPriceOriginal;
+    private TextView mItemPriceSavings;
     private TextView mItemDescription;
     private Item item;
 
@@ -27,7 +29,15 @@ public class ViewItemActivity extends ActionBarActivity {
 
         this.mItemImage = (ImageView)findViewById(R.id.ivItemView);
         this.mItemPrice = (TextView)findViewById(R.id.tvItemPrice);
+        this.mItemPriceOriginal = (TextView) findViewById(R.id.tvOriginalPrice);
+        this.mItemPriceSavings = (TextView) findViewById(R.id.tvSavingsAmount);
         this.mItemDescription = (TextView)findViewById(R.id.tvItemDescription);
+
+        this.mItemPrice.setText("$" + this.item.getmPrice());
+        this.mItemImage.setImageResource(this.item.getmImage());
+        this.mItemPriceOriginal.setText("Original $" + this.item.getmRetailPrice());
+        this.mItemPriceSavings.setText("Savings $" + (this.item.getmRetailPrice()-this.item.getmPrice()));
+        this.mItemDescription.setText("Description");
     }
 
 

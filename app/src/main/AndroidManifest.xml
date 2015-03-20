@@ -18,7 +18,7 @@
         </activity>
         <activity
             android:name=".ViewItemActivity"
-            android:label="@string/title_activity_view_item_activty" >
+            android:label="@string/title_activity_view_item_activity" >
         </activity>
     </application>
 

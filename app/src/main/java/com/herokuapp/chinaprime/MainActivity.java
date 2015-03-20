@@ -100,8 +100,8 @@ public class MainActivity extends ActionBarActivity {
 
     private void createItems() {
         this.mItems = new ArrayList<Item>();
-        this.mItems.add(new Item("iWatch", R.drawable.iWatch, 350, 250));
-        this.mItems.add(new Item("Hero GoPro", R.drawable.HeroGoPro, 200, 100));
+        this.mItems.add(new Item("iwatch", R.drawable.iwatch, 350, 250));
+        this.mItems.add(new Item("Hero GoPro", R.drawable.herogopro, 200, 100));
         for (int i = 1; i < 5; i++) {
             this.mItems.add(new Item("Item " + i, R.drawable.ic_launcher, 35, 22));
         }
