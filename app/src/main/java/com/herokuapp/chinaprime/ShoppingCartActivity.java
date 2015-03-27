@@ -40,7 +40,6 @@ public class ShoppingCartActivity extends ActionBarActivity {
         mAdapter = new AdapterMain(this.mItems);
         mRecyclerView.setAdapter(mAdapter);
 
-
     }
 
 

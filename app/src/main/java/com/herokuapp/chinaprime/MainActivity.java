@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.herokuapp.chinaprime.Adapters.AdapterMain;
+import com.herokuapp.chinaprime.ClickListeners.DrawerItemClickListener;
 import com.herokuapp.chinaprime.Fragments.CartFragment;
 import com.herokuapp.chinaprime.Objects.Item;
 
@@ -75,7 +76,7 @@ public class MainActivity extends ActionBarActivity {
         // set up the drawer's list view with items and click listener
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.drawer_list_item, mMenuTitles));
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener(this));
 
         mDrawerList.setItemChecked(0, true);
 
@@ -104,13 +105,11 @@ public class MainActivity extends ActionBarActivity {
             return true;
         } else if (id == 16908332) {
             Log.i(DEBUG, "Home Button pressed");
-            if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
-                this.mDrawerLayout.closeDrawer(Gravity.LEFT);
-            } else {
-                this.mDrawerLayout.openDrawer(Gravity.LEFT);
-            }
+            openCloseDrawer();
+
             return true;
         } else if (id == R.id.cart) {
+            Log.i(DEBUG, "Card Pressed");
 
             return true;
         }
@@ -119,12 +118,15 @@ public class MainActivity extends ActionBarActivity {
     }
 
     /*
-     * The click listner for ListView in the navigation drawer
+     * Open or close drawer
+     *
+     * @param
      */
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
+    private void openCloseDrawer() {
+        if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
+            this.mDrawerLayout.closeDrawer(Gravity.LEFT);
+        } else {
+            this.mDrawerLayout.openDrawer(Gravity.LEFT);
         }
     }
 
@@ -133,7 +135,7 @@ public class MainActivity extends ActionBarActivity {
      *
      * @param position in drawer
      */
-    private void selectItem(int position) {
+    public void selectItem(int position) {
         Log.i(DEBUG, "" + position);
 
         switch(position){
