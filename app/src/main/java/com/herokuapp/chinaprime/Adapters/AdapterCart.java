@@ -1,4 +1,4 @@
-package com.herokuapp.chinaprime;
+package com.herokuapp.chinaprime.Adapters;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -8,52 +8,44 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.herokuapp.chinaprime.Objects.Item;
+import com.herokuapp.chinaprime.MainActivity;
+import com.herokuapp.chinaprime.R;
+import com.herokuapp.chinaprime.Objects.ViewHolder;
+
 import java.util.ArrayList;
 
 /**
- * Created by Andrew Cho on 1/27/15.
+ * Created by Andrew Cho on 3/23/2015.
  */
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class AdapterCart extends RecyclerView.Adapter<ViewHolder> {
     private ArrayList<Item> items;
-    private String DEBUG = "MyAdapter";
+    private String DEBUG = "AdapterMain";
 
     ImageView imageViewLeft;
     ImageView imageViewRight;
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        // each data item is just a string in this case
-        public View view;
-
-        public ViewHolder(View v) {
-            super(v);
-            view = v;
-        }
-    }
-
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(ArrayList<Item> items) {
+    public AdapterCart(ArrayList<Item> items) {
         this.items = items;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                     int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item, parent, false);
+                .inflate(R.layout.item_home, parent, false);
 
         // set the view's size, margins, paddings and layout parameters
         ViewHolder vh = new ViewHolder(v);
+
         return vh;
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         Log.i(DEBUG, "" + position);
         int leftPosition = position * 2;
         int rightPosition = position * 2 + 1;
@@ -97,21 +89,4 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public int getItemCount() {
         return items.size();
     }
-
-    /*
-    * removes deck from deckView
-    */
-    public void removeAt(int position) {
-        if (position > -1 && position < items.size()) {
-            items.remove(position);
-            this.notifyItemRemoved(position);
-        }
-    }
-    /*
-     * adds deck to deckView
-     */
-    public void add(Item item) {
-        this.items.add(item);
-    }
-
 }

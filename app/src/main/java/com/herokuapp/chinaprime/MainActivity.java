@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,12 +18,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.herokuapp.chinaprime.Adapters.AdapterMain;
+import com.herokuapp.chinaprime.Fragments.CartFragment;
+import com.herokuapp.chinaprime.Objects.Item;
+
 import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity {
     private RecyclerView mRecyclerView;
-    private MyAdapter mAdapter;
+    private AdapterMain mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -30,6 +35,7 @@ public class MainActivity extends ActionBarActivity {
     private String DEBUG = "MainActivity";
 
     public static ArrayList<Item> mItems;
+    public static ArrayList<Integer> mSavedItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +62,7 @@ public class MainActivity extends ActionBarActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(this.mItems);
+        mAdapter = new AdapterMain(this.mItems);
         mRecyclerView.setAdapter(mAdapter);
 
         //Setting up navigation drawer
@@ -70,6 +76,11 @@ public class MainActivity extends ActionBarActivity {
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.drawer_list_item, mMenuTitles));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        mDrawerList.setItemChecked(0, true);
+
+        //setting up items lists
+        mSavedItems = new ArrayList<Integer>();
     }
 
 
@@ -82,31 +93,81 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
+        // Handle action bar item_home clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
             return true;
         } else if (id == 16908332) {
             Log.i(DEBUG, "Home Button pressed");
+            if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
+                this.mDrawerLayout.closeDrawer(Gravity.LEFT);
+            } else {
+                this.mDrawerLayout.openDrawer(Gravity.LEFT);
+            }
+            return true;
+        } else if (id == R.id.cart) {
+
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void createItems() {
-        this.mItems = new ArrayList<Item>();
-        this.mItems.add(new Item("iwatch", R.drawable.iwatch, 350, 250));
-        this.mItems.add(new Item("Hero GoPro", R.drawable.herogopro, 200, 100));
-        for (int i = 1; i < 5; i++) {
-            this.mItems.add(new Item("Item " + i, R.drawable.ic_launcher, 35, 22));
+    /*
+     * The click listner for ListView in the navigation drawer
+     */
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectItem(position);
         }
     }
 
+    /*
+     * Selected drawer item
+     *
+     * @param position in drawer
+     */
+    private void selectItem(int position) {
+        Log.i(DEBUG, "" + position);
+
+        switch(position){
+            case 1:
+                // update the main content by replacing fragments
+                Fragment fragment = new CartFragment();
+                Bundle args = new Bundle();
+                args.putInt(CartFragment.menu_number, position);
+                fragment.setArguments(args);
+
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+                break;
+
+            case 2:
+
+
+            default:
+
+        }
+
+        // update selected item_home and title, then close the drawer
+        mDrawerList.setItemChecked(position, true);
+        setTitle(mMenuTitles[position]);
+        mDrawerLayout.closeDrawer(mDrawerList);
+    }
+
+    /********INTENTS TO NEW ACTIVITES*********/
+
+    /*
+     * starts intent 'ViewItemActivity'
+     *
+     * @param position of item
+     */
     public void goToViewItem(int position) {
         Intent intent = new Intent(this, ViewItemActivity.class);
         if(position >= 0 && position < this.mItems.size()) {
@@ -115,27 +176,23 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    /* The click listner for ListView in the navigation drawer */
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
+    public void goToShoppingCard() {
+        Intent intent = new Intent(this, ShoppingCartActivity.class);
+        this.startActivity(intent);
+    }
+
+    /********DemoItems*************/
+
+    /*
+     * Manually Create Items
+     */
+    private void createItems() {
+        this.mItems = new ArrayList<Item>();
+        this.mItems.add(new Item("iwatch", R.drawable.iwatch, 350, 250));
+        this.mItems.add(new Item("Hero GoPro", R.drawable.herogopro, 200, 100));
+        for (int i = 0; i < 5; i++) {
+            this.mItems.add(new Item("Item " + i, R.drawable.ic_launcher, 35, 22));
         }
     }
-
-    private void selectItem(int position) {
-        // update the main content by replacing fragments
-        Fragment fragment = new CartFragment();
-        Bundle args = new Bundle();
-        args.putInt(CartFragment.menu_number, position);
-        fragment.setArguments(args);
-
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-
-        // update selected item and title, then close the drawer
-        mDrawerList.setItemChecked(position, true);
-        setTitle(mMenuTitles[position]);
-        mDrawerLayout.closeDrawer(mDrawerList);
-    }
 }
+

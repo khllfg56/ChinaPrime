@@ -1,11 +1,14 @@
 package com.herokuapp.chinaprime;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.herokuapp.chinaprime.Objects.Item;
 
 
 public class ViewItemActivity extends ActionBarActivity {
@@ -50,16 +53,25 @@ public class ViewItemActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
+        // Handle action bar item_home clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        switch(id) {
+            case R.id.favorite:
+                MainActivity.mSavedItems.add(this.itemPosition);
+                break;
+            case R.id.share:
 
+                break;
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    /********Intents*******/
+    private void goToShoppingCart() {
+        Intent intent = new Intent(this, ShoppingCartActivity.class);
+        startActivity(intent);
     }
 }

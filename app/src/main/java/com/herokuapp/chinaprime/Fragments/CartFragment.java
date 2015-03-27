@@ -1,10 +1,12 @@
-package com.herokuapp.chinaprime;
+package com.herokuapp.chinaprime.Fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.herokuapp.chinaprime.R;
 
 /**
  * Created by Andrew Cho on 3/19/2015.

@@ -1,4 +1,4 @@
-package com.herokuapp.chinaprime;
+package com.herokuapp.chinaprime.ClickListeners;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +22,7 @@ public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListen
 
     /*
     * When Gesture detected, it intercepts and finds what view in recyclerView is used.
-    * It then detects if there is a velocity to determine if item was swiped
+    * It then detects if there is a velocity to determine if item_home was swiped
     * If swiped, it will move to the deck
     * If clicked, it will show preview
     */
