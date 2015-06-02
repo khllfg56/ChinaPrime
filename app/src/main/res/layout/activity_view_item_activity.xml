@@ -53,12 +53,14 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:paddingRight="2dp">
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"/>
                 <TextView
+                    android:id="@+id/tvViewItemBuyButton"
                     android:layout_width="0dp"
                     android:layout_height="25dp"
                     android:text="Buy"
@@ -84,6 +86,7 @@
 
             <RatingBar
                 android:id="@+id/ratingBar"
+                android:isIndicator="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:numStars="5"

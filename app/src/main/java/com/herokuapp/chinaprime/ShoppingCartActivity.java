@@ -39,7 +39,6 @@ public class ShoppingCartActivity extends ActionBarActivity {
         // specify an adapter (see also next example)
         mAdapter = new AdapterMain(this.mItems);
         mRecyclerView.setAdapter(mAdapter);
-
     }
 
 
@@ -65,7 +64,7 @@ public class ShoppingCartActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /********DemoItems*************/
+    /***********DemoItems*************/
     private void createItems() {
         this.mItems = new ArrayList<Item>();
         this.mItems.add(new Item("iwatch", R.drawable.iwatch, 350, 250));

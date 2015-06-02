@@ -13,8 +13,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -37,6 +35,7 @@ public class MainActivity extends ActionBarActivity {
 
     public static ArrayList<Item> mItems;
     public static ArrayList<Integer> mSavedItems;
+    public static ArrayList<Item> mCartItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +78,6 @@ public class MainActivity extends ActionBarActivity {
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener(this));
 
         mDrawerList.setItemChecked(0, true);
-
-        //setting up items lists
-        mSavedItems = new ArrayList<Integer>();
     }
 
 
@@ -195,6 +191,12 @@ public class MainActivity extends ActionBarActivity {
         for (int i = 0; i < 5; i++) {
             this.mItems.add(new Item("Item " + i, R.drawable.ic_launcher, 35, 22));
         }
+    }
+
+    private void createLists() {
+        mItems = new ArrayList<Item>();
+        mSavedItems = new ArrayList<Integer>();
+        mCartItems = new ArrayList<Item>();
     }
 }
 
