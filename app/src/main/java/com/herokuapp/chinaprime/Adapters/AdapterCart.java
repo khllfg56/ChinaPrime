@@ -20,10 +20,9 @@ import java.util.ArrayList;
  */
 public class AdapterCart extends RecyclerView.Adapter<ViewHolder> {
     private ArrayList<Item> items;
-    private String DEBUG = "AdapterMain";
+    private String DEBUG = "AdapterCart";
 
-    ImageView imageViewLeft;
-    ImageView imageViewRight;
+    ImageView cartItem;
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public AdapterCart(ArrayList<Item> items) {
@@ -36,7 +35,7 @@ public class AdapterCart extends RecyclerView.Adapter<ViewHolder> {
                                                      int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_home, parent, false);
+                .inflate(R.layout.item_cart, parent, false);
 
         // set the view's size, margins, paddings and layout parameters
         ViewHolder vh = new ViewHolder(v);
@@ -46,41 +45,22 @@ public class AdapterCart extends RecyclerView.Adapter<ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Log.i(DEBUG, "" + position);
-        int leftPosition = position * 2;
-        int rightPosition = position * 2 + 1;
+        cartItem = (ImageView) holder.view.findViewById(R.id.ivCartImage);
+        cartItem.setTag(position);
 
-        imageViewLeft = (ImageView) holder.view.findViewById(R.id.ivImageLeft);
-        imageViewRight = (ImageView) holder.view.findViewById(R.id.ivImageRight);
-        imageViewLeft.setTag(leftPosition);
-        imageViewRight.setTag(rightPosition);
-
-        if (rightPosition == items.size()) {
-            CardView temp = (CardView) holder.view.findViewById(R.id.card_view_right);
-            temp.setVisibility(View.INVISIBLE);
-        }
-
-        imageViewLeft.setOnClickListener(new View.OnClickListener() {
+        cartItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int position = (int)v.getTag();
                 Log.i(DEBUG, position+"");
-                MainActivity ma = (MainActivity)v.getContext();
-                ma.goToViewItem(position);
-            }
-        });
-        imageViewRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = (int)v.getTag();
-                Log.i(DEBUG, position+"");
+
+                //start Activity
                 MainActivity ma = (MainActivity)v.getContext();
                 ma.goToViewItem(position);
             }
         });
 
-        imageViewLeft.setImageResource(items.get(leftPosition).getmImage());
-        imageViewRight.setImageResource(items.get(rightPosition).getmImage());
+        cartItem.setImageResource(items.get(position).getmImage());
     }
 
 
