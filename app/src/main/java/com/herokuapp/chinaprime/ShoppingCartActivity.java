@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.herokuapp.chinaprime.Adapters.AdapterMain;
+import com.herokuapp.chinaprime.Adapters.AdapterCart;
 import com.herokuapp.chinaprime.Objects.Item;
 
 import java.util.ArrayList;
@@ -17,8 +17,8 @@ public class ShoppingCartActivity extends ActionBarActivity {
 
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
-    private AdapterMain mAdapter;
-    private ArrayList<Item> mItems;
+    private AdapterCart mAdapter;
+    private ArrayList<Item> mCartItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class ShoppingCartActivity extends ActionBarActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new AdapterMain(this.mItems);
+        mAdapter = new AdapterCart(this.mCartItems);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -64,10 +64,9 @@ public class ShoppingCartActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /***********DemoItems*************/
-    private void createItems() {
-        this.mItems = new ArrayList<Item>();
-        this.mItems.add(new Item("iwatch", R.drawable.iwatch, 350, 250));
-        this.mItems.add(new Item("Hero GoPro", R.drawable.herogopro, 200, 100));
+    //Made for demo reasons
+    private void grabFromMainActivity() {
+        mCartItems = MainActivity.mCartItems;
     }
+
 }
