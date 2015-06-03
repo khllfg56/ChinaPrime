@@ -26,7 +26,7 @@ public class ShoppingCartActivity extends ActionBarActivity {
         setContentView(R.layout.activity_shopping_cart);
 
         this.setTitle("Cart");
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view_cart);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -36,8 +36,11 @@ public class ShoppingCartActivity extends ActionBarActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        //This is to grab items from main activity
+        grabFromMainActivity();
+
         // specify an adapter (see also next example)
-        mAdapter = new AdapterCart(this.mCartItems);
+        mAdapter = new AdapterCart(this.mCartItems, this.getApplicationContext());
         mRecyclerView.setAdapter(mAdapter);
     }
 
