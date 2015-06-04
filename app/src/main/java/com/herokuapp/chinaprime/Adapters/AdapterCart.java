@@ -67,8 +67,8 @@ public class AdapterCart extends RecyclerView.Adapter<ViewHolder> {
         });
         cartItem.setImageResource(cartItems.get(position).getmImage());
 
-        String[] numbers = new String[]{"1", "2", "3", "4", "5"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, numbers);
+        Integer[] numbers = new Integer[]{1,2,3,4,5};
+        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(context, android.R.layout.simple_spinner_item, numbers);
         itemQuantityDropdown.setAdapter(adapter);
     }
 

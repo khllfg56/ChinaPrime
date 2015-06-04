@@ -46,7 +46,7 @@
                     android:layout_height="match_parent" />
                 <Spinner
                     android:id="@+id/spItemQuantity"
-                    android:layout_width="40dp"
+                    android:layout_width="45dp"
                     android:layout_height="wrap_content"
                     android:background="@android:drawable/btn_dropdown"
                     android:spinnerMode="dropdown" />
