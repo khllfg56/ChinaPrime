@@ -1,5 +1,6 @@
 package com.herokuapp.chinaprime.Adapters;
 
+import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -84,12 +85,14 @@ public class AdapterMain extends RecyclerView.Adapter<ViewHolder> {
             @Override
             public void onClick(View v) {
                 MainActivity.mCartItems.add(items.get(leftPosition));
+                TextViewAddToCart(buyLeft);
             }
         });
         buyRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MainActivity.mCartItems.add(items.get(rightPosition));
+                TextViewAddToCart(buyRight);
             }
         });
 
@@ -128,5 +131,11 @@ public class AdapterMain extends RecyclerView.Adapter<ViewHolder> {
 
     public void saveItems() {
 
+    }
+
+    //change text
+    public void TextViewAddToCart(TextView tv) {
+        tv.setText("Added");
+        tv.setBackgroundColor(Color.YELLOW);
     }
 }
