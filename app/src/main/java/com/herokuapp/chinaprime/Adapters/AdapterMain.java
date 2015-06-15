@@ -1,5 +1,6 @@
 package com.herokuapp.chinaprime.Adapters;
 
+import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.herokuapp.chinaprime.Objects.Item;
 import com.herokuapp.chinaprime.MainActivity;
@@ -22,12 +24,12 @@ import java.util.ArrayList;
 public class AdapterMain extends RecyclerView.Adapter<ViewHolder> {
     private ArrayList<Item> items;
     private String DEBUG = "AdapterMain";
-
-    ImageView imageViewLeft;
-    ImageView imageViewRight;
-
-    CheckBox savedLeft;
-    CheckBox savedRight;
+    private ImageView imageViewLeft;
+    private ImageView imageViewRight;
+    private CheckBox savedLeft;
+    private CheckBox savedRight;
+    private TextView buyLeft;
+    private TextView buyRight;
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public AdapterMain(ArrayList<Item> items) {
@@ -51,11 +53,13 @@ public class AdapterMain extends RecyclerView.Adapter<ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Log.i(DEBUG, "" + position);
-        int leftPosition = position * 2;
-        int rightPosition = position * 2 + 1;
+        final int leftPosition = position * 2;
+        final int rightPosition = position * 2 + 1;
 
         imageViewLeft = (ImageView) holder.view.findViewById(R.id.ivImageLeft);
         imageViewRight = (ImageView) holder.view.findViewById(R.id.ivImageRight);
+        buyLeft = (TextView) holder.view.findViewById(R.id.tvBuyLeft);
+        buyRight = (TextView) holder.view.findViewById(R.id.tvBuyRight);
         imageViewLeft.setTag(leftPosition);
         imageViewRight.setTag(rightPosition);
 
@@ -75,6 +79,20 @@ public class AdapterMain extends RecyclerView.Adapter<ViewHolder> {
                 Log.i(DEBUG, position+"");
                 MainActivity ma = (MainActivity)v.getContext();
                 ma.goToViewItem(position);
+            }
+        });
+        buyLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.mCartItems.add(items.get(leftPosition));
+                TextViewAddToCart(buyLeft);
+            }
+        });
+        buyRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.mCartItems.add(items.get(rightPosition));
+                TextViewAddToCart(buyRight);
             }
         });
 
@@ -113,5 +131,11 @@ public class AdapterMain extends RecyclerView.Adapter<ViewHolder> {
 
     public void saveItems() {
 
+    }
+
+    //change text
+    public void TextViewAddToCart(TextView tv) {
+        tv.setText("Added");
+        tv.setBackgroundColor(Color.YELLOW);
     }
 }

@@ -34,7 +34,7 @@ public class MainActivity extends ActionBarActivity {
     private String DEBUG = "MainActivity";
 
     public static ArrayList<Item> mItems;
-    public static ArrayList<Integer> mSavedItems;
+    public static ArrayList<Item> mSavedItems;
     public static ArrayList<Item> mCartItems;
 
     @Override
@@ -45,10 +45,11 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_sysbar_menu_land_big);
 
-        //addItems
+        //create Lists
+        createLists();
+        //Demo items
         this.createItems();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
@@ -106,7 +107,7 @@ public class MainActivity extends ActionBarActivity {
             return true;
         } else if (id == R.id.cart) {
             Log.i(DEBUG, "Card Pressed");
-
+            goToShoppingCart();
             return true;
         }
 
@@ -115,8 +116,6 @@ public class MainActivity extends ActionBarActivity {
 
     /*
      * Open or close drawer
-     *
-     * @param
      */
     private void openCloseDrawer() {
         if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
@@ -174,9 +173,16 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    public void goToShoppingCard() {
+    public void goToShoppingCart() {
         Intent intent = new Intent(this, ShoppingCartActivity.class);
         this.startActivity(intent);
+    }
+
+    /********Utility Functions******/
+    private void createLists() {
+        mItems = new ArrayList<Item>();
+        mSavedItems = new ArrayList<Item>();
+        mCartItems = new ArrayList<Item>();
     }
 
     /********DemoItems*************/
@@ -185,18 +191,11 @@ public class MainActivity extends ActionBarActivity {
      * Manually Create Items
      */
     private void createItems() {
-        this.mItems = new ArrayList<Item>();
         this.mItems.add(new Item("iwatch", R.drawable.iwatch, 350, 250));
         this.mItems.add(new Item("Hero GoPro", R.drawable.herogopro, 200, 100));
         for (int i = 0; i < 5; i++) {
             this.mItems.add(new Item("Item " + i, R.drawable.ic_launcher, 35, 22));
         }
-    }
-
-    private void createLists() {
-        mItems = new ArrayList<Item>();
-        mSavedItems = new ArrayList<Integer>();
-        mCartItems = new ArrayList<Item>();
     }
 }
 

@@ -23,14 +23,17 @@
             android:layout_weight="1">
             <TextView
                 android:id="@+id/tvTitle"
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="40dp" />
             <TextView
                 android:id="@+id/tvCompany"
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="40dp" />
             <TextView
                 android:id="@+id/tvPrice"
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="40dp" />
             <LinearLayout
@@ -38,11 +41,15 @@
                 android:layout_height="40dp">
                 <TextView
                     android:text="Qty:"
+                    android:gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
-                <EditText
-                    android:layout_width="30dp"
-                    android:layout_height="match_parent" />
+                <Spinner
+                    android:id="@+id/spItemQuantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:spinnerMode="dropdown" />
             </LinearLayout>
         </LinearLayout>
         </LinearLayout>

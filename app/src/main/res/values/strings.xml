@@ -17,9 +17,16 @@
     <string name="title_activity_tabbed">TabbedActivity</string>
 
 
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
+    <string-array name="numbers_arrays">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+
     <string name="title_activity_shopping_cart">ShoppingCartActivity</string>
 
 </resources>
