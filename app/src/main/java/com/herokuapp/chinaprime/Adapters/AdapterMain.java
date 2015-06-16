@@ -135,7 +135,9 @@ public class AdapterMain extends RecyclerView.Adapter<ViewHolder> {
 
     //change text
     public void TextViewAddToCart(TextView tv) {
+        Log.i(DEBUG, "TextViewAddCart called");
         tv.setText("Added");
         tv.setBackgroundColor(Color.YELLOW);
+        this.notifyDataSetChanged();
     }
 }
