@@ -63,7 +63,7 @@ public class MainActivity extends ActionBarActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new AdapterMain(this.mItems);
+        mAdapter = new AdapterMain(this.mItems, this.getApplicationContext());
         mRecyclerView.setAdapter(mAdapter);
 
         //Setting up navigation drawer

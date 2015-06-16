@@ -1,6 +1,6 @@
 package com.herokuapp.chinaprime.Adapters;
 
-import android.graphics.Color;
+import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,10 +11,11 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.herokuapp.chinaprime.Objects.Item;
 import com.herokuapp.chinaprime.MainActivity;
-import com.herokuapp.chinaprime.R;
+import com.herokuapp.chinaprime.Objects.Item;
 import com.herokuapp.chinaprime.Objects.ViewHolder;
+import com.herokuapp.chinaprime.R;
+import com.herokuapp.chinaprime.Utility.Other.AddCartTextView;
 
 import java.util.ArrayList;
 
@@ -22,18 +23,20 @@ import java.util.ArrayList;
  * Created by Andrew Cho on 1/27/15.
  */
 public class AdapterMain extends RecyclerView.Adapter<ViewHolder> {
+    private Context context;
     private ArrayList<Item> items;
     private String DEBUG = "AdapterMain";
     private ImageView imageViewLeft;
     private ImageView imageViewRight;
     private CheckBox savedLeft;
     private CheckBox savedRight;
-    private TextView buyLeft;
-    private TextView buyRight;
+    private AddCartTextView buyLeft;
+    private AddCartTextView buyRight;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public AdapterMain(ArrayList<Item> items) {
+    public AdapterMain(ArrayList<Item> items, Context applicationContext) {
         this.items = items;
+        this.context = applicationContext;
     }
 
     // Create new views (invoked by the layout manager)
@@ -58,15 +61,15 @@ public class AdapterMain extends RecyclerView.Adapter<ViewHolder> {
 
         imageViewLeft = (ImageView) holder.view.findViewById(R.id.ivImageLeft);
         imageViewRight = (ImageView) holder.view.findViewById(R.id.ivImageRight);
-        buyLeft = (TextView) holder.view.findViewById(R.id.tvBuyLeft);
-        buyRight = (TextView) holder.view.findViewById(R.id.tvBuyRight);
+        buyLeft = (AddCartTextView) holder.view.findViewById(R.id.tvBuyLeft);
+        buyRight = (AddCartTextView) holder.view.findViewById(R.id.tvBuyRight);
         imageViewLeft.setTag(leftPosition);
         imageViewRight.setTag(rightPosition);
 
         imageViewLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int position = (int)v.getTag();
+                int position = (Integer)v.getTag();
                 Log.i(DEBUG, position+"");
                 MainActivity ma = (MainActivity)v.getContext();
                 ma.goToViewItem(position);
@@ -75,7 +78,7 @@ public class AdapterMain extends RecyclerView.Adapter<ViewHolder> {
         imageViewRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int position = (int)v.getTag();
+                int position = (Integer)v.getTag();
                 Log.i(DEBUG, position+"");
                 MainActivity ma = (MainActivity)v.getContext();
                 ma.goToViewItem(position);
@@ -134,10 +137,18 @@ public class AdapterMain extends RecyclerView.Adapter<ViewHolder> {
     }
 
     //change text
-    public void TextViewAddToCart(TextView tv) {
+    public void TextViewAddToCart(AddCartTextView tv) {
         Log.i(DEBUG, "TextViewAddCart called");
-        tv.setText("Added");
-        tv.setBackgroundColor(Color.YELLOW);
+
+        if (tv.getIsAdded()) {
+            tv.setText("Added");
+            tv.setBackgroundColor(context.getResources().getColor(R.color.yellow));
+        } else {
+            tv.setText("Add to cart");
+            tv.setBackgroundColor(context.getResources().getColor(R.color.background));
+        }
+
+        tv.setIsAdded(!tv.getIsAdded());
         this.notifyDataSetChanged();
     }
 }
