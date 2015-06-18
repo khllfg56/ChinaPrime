@@ -87,15 +87,20 @@ public class AdapterMain extends RecyclerView.Adapter<ViewHolder> {
             @Override
             public void onClick(View v) {
                 Item temp = items.get(leftPosition);
+                temp.setIsAddedToCart(true);
+                //temporary storage
                 MainActivity.mCartItems.add(temp);
-                TextViewAddToCart(leftPosition);
+                TextViewAddToCart(leftPosition, buyLeft);
             }
         });
         buyRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Item temp = items.get(rightPosition);
+                temp.setIsAddedToCart(true);
+                //temporary storage
                 MainActivity.mCartItems.add(items.get(rightPosition));
-                TextViewAddToCart(rightPosition);
+                TextViewAddToCart(rightPosition, buyRight);
             }
         });
 
@@ -137,11 +142,14 @@ public class AdapterMain extends RecyclerView.Adapter<ViewHolder> {
     }
 
     //change text
-    public void TextViewAddToCart(int position) {
-        Log.i(DEBUG, "TextViewAddCart called");
-        TextView temp = position % 2 == 0 ? buyLeft : buyRight;
-        temp.setText("Added");
-        temp.setBackgroundColor(context.getResources().getColor(R.color.yellow));
+    public void TextViewAddToCart(int position, TextView tv) {
+        Log.i(DEBUG, "TextViewAddCart called" + position);
+
+        if (items.get(position).isAddedToCart()) {
+            tv.setText("Added");
+            tv.setBackgroundColor(context.getResources().getColor(R.color.yellow));
+        }
+
         this.notifyDataSetChanged();
     }
 }
