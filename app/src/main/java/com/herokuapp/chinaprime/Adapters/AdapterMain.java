@@ -53,7 +53,7 @@ public class AdapterMain extends RecyclerView.Adapter<ViewHolder> {
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         Log.i(DEBUG, "" + position);
         final int leftPosition = position * 2;
         final int rightPosition = position * 2 + 1;
@@ -141,7 +141,7 @@ public class AdapterMain extends RecyclerView.Adapter<ViewHolder> {
         Log.i(DEBUG, "TextViewAddCart called");
         TextView temp = position % 2 == 0 ? buyLeft : buyRight;
         temp.setText("Added");
-        temp.setBackgroundColor(R.color.yellow);
+        temp.setBackgroundColor(context.getResources().getColor(R.color.yellow));
         this.notifyDataSetChanged();
     }
 }
