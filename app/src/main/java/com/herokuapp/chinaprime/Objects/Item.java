@@ -9,6 +9,7 @@ public class Item {
     private int mRetailPrice;
     private int mPrice;
     private boolean mIsSaved;
+    private boolean isAddedToCart;
 
     public Item(String mTitle, int mImage, int mRetailPrice, int mPrice) {
         this.mTitle = mTitle;
@@ -57,5 +58,13 @@ public class Item {
 
     public void setmIsSaved(boolean mIsSaved) {
         this.mIsSaved = mIsSaved;
+    }
+
+    public boolean isAddedToCart() {
+        return isAddedToCart;
+    }
+
+    public void setIsAddedToCart(boolean isAddedToCart) {
+        this.isAddedToCart = isAddedToCart;
     }
 }

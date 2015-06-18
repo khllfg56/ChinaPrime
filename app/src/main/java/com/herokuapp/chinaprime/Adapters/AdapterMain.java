@@ -15,7 +15,6 @@ import com.herokuapp.chinaprime.MainActivity;
 import com.herokuapp.chinaprime.Objects.Item;
 import com.herokuapp.chinaprime.Objects.ViewHolder;
 import com.herokuapp.chinaprime.R;
-import com.herokuapp.chinaprime.Utility.Other.AddCartTextView;
 
 import java.util.ArrayList;
 
@@ -30,8 +29,8 @@ public class AdapterMain extends RecyclerView.Adapter<ViewHolder> {
     private ImageView imageViewRight;
     private CheckBox savedLeft;
     private CheckBox savedRight;
-    private AddCartTextView buyLeft;
-    private AddCartTextView buyRight;
+    private TextView buyLeft;
+    private TextView buyRight;
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public AdapterMain(ArrayList<Item> items, Context applicationContext) {
@@ -61,8 +60,8 @@ public class AdapterMain extends RecyclerView.Adapter<ViewHolder> {
 
         imageViewLeft = (ImageView) holder.view.findViewById(R.id.ivImageLeft);
         imageViewRight = (ImageView) holder.view.findViewById(R.id.ivImageRight);
-        buyLeft = (AddCartTextView) holder.view.findViewById(R.id.tvBuyLeft);
-        buyRight = (AddCartTextView) holder.view.findViewById(R.id.tvBuyRight);
+        buyLeft = (TextView) holder.view.findViewById(R.id.tvBuyLeft);
+        buyRight = (TextView) holder.view.findViewById(R.id.tvBuyRight);
         imageViewLeft.setTag(leftPosition);
         imageViewRight.setTag(rightPosition);
 
@@ -87,15 +86,16 @@ public class AdapterMain extends RecyclerView.Adapter<ViewHolder> {
         buyLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.mCartItems.add(items.get(leftPosition));
-                TextViewAddToCart(buyLeft);
+                Item temp = items.get(leftPosition);
+                MainActivity.mCartItems.add(temp);
+                TextViewAddToCart(leftPosition);
             }
         });
         buyRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MainActivity.mCartItems.add(items.get(rightPosition));
-                TextViewAddToCart(buyRight);
+                TextViewAddToCart(rightPosition);
             }
         });
 
@@ -137,18 +137,11 @@ public class AdapterMain extends RecyclerView.Adapter<ViewHolder> {
     }
 
     //change text
-    public void TextViewAddToCart(AddCartTextView tv) {
+    public void TextViewAddToCart(int position) {
         Log.i(DEBUG, "TextViewAddCart called");
-
-        if (tv.getIsAdded()) {
-            tv.setText("Added");
-            tv.setBackgroundColor(context.getResources().getColor(R.color.yellow));
-        } else {
-            tv.setText("Add to cart");
-            tv.setBackgroundColor(context.getResources().getColor(R.color.background));
-        }
-
-        tv.setIsAdded(!tv.getIsAdded());
+        TextView temp = position % 2 == 0 ? buyLeft : buyRight;
+        temp.setText("Added");
+        temp.setBackgroundColor(R.color.yellow);
         this.notifyDataSetChanged();
     }
 }
